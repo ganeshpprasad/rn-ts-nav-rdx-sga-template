@@ -8,20 +8,61 @@
  * @format
  */
 
-import React from 'react';
-import {SafeAreaView, Text, StatusBar} from 'react-native';
+// import React from 'react';
+import {Navigation} from 'react-native-navigation';
 
 declare var global: {HermesInternal: null | {}};
 
+import {HOME, AUTH, DETAILS} from './screens';
+
+import Home from './screens/Home';
+import Details from './screens/Details';
+import Auth from './screens/Auth';
+
+const Screens = new Map<string, React.FC<any>>();
+
+Screens.set(HOME, Home);
+Screens.set(DETAILS, Details);
+Screens.set(AUTH, Auth);
+
+Screens.forEach((Comp, key) => {
+  Navigation.registerComponent(key, () => Comp);
+});
+
+const loggedIn = {
+  stack: {
+    children: [
+      {
+        component: {
+          name: HOME,
+        },
+      },
+    ],
+    options: {},
+  },
+};
+
+const notLoggedIn = {
+  component: {
+    name: AUTH,
+  },
+};
+
 const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Text>Hello auth logic</Text>
-      </SafeAreaView>
-    </>
-  );
+  let screen;
+
+  // You have to kill the app and repoen for this method to work
+  // TODO Check if inbetween the app you are logged out from backend
+
+  if (true) {
+    screen = loggedIn;
+  } else {
+    screen = notLoggedIn;
+  }
+
+  Navigation.setRoot({
+    root: screen,
+  });
 };
 
 export default App;
