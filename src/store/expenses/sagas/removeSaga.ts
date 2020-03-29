@@ -1,6 +1,6 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
-import {REMOVE_EXPENSE, removedExpense, removingFailed} from './actions';
-import {IRemoveExpense} from './types';
+import {REMOVE_EXPENSE, removedExpense, removingFailed} from '../actions';
+import {IRemoveExpense} from '../types';
 
 const removeFromDB = async (expenseId: string) => {
   return await expenseId;

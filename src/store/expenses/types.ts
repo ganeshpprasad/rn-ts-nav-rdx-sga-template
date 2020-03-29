@@ -27,7 +27,7 @@ export type ExpenseActionTypes = IAddedExpense | IRemoveExpense;
 
 export interface IAddedExpenseResult {
   id: string;
-  payload: IExpenseValue;
+  expense: IExpenseValue;
 }
 
 export interface IExpenseValue {
