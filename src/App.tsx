@@ -13,6 +13,8 @@ import {Navigation} from 'react-native-navigation';
 
 declare var global: {HermesInternal: null | {}};
 
+import {withReduxProvider} from './store';
+
 import {HOME, AUTH, DETAILS} from './screens';
 
 import Home from './screens/Home';
@@ -26,7 +28,11 @@ Screens.set(DETAILS, Details);
 Screens.set(AUTH, Auth);
 
 Screens.forEach((Comp, key) => {
-  Navigation.registerComponent(key, () => Comp);
+  Navigation.registerComponent(
+    key,
+    () => withReduxProvider(Comp),
+    () => Comp,
+  );
 });
 
 const loggedIn = {
