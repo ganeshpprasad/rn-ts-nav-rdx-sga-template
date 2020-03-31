@@ -2,6 +2,7 @@ import React from 'react';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+import {composeWithDevTools} from 'redux-devtools-extension';
 // import {persistReducer, persistStore} from 'redux-persist';
 // import {PersistGate} from 'redux-persist/integration/react';
 
@@ -17,7 +18,10 @@ import rootSaga from './rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+);
 // const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
